@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 public class ProductPage {
     private WebDriver driver;
 
@@ -20,6 +21,11 @@ public class ProductPage {
     @FindBy(css = "[data-button-action='add-to-cart']")
     private WebElement addToCartButton;
 
+    @FindBy(tagName = "regular-price")
+    private WebElement regularPrice;
+
+    @FindBy(xpath = "//*[@id=\"main\"]/div[1]/div[2]/div[1]/div[2]/div/span[1]")
+    private WebElement currentPrice;
 
     public ProductPage(WebDriver driver) {
         this.driver = driver;
@@ -36,14 +42,20 @@ public class ProductPage {
 
 //        quantityOfProduct.clear();
         quantityOfProduct.sendKeys(Keys.BACK_SPACE);
-        WebElement enterQuantityagain= driver.findElement(By.name("qty"));
+        WebElement enterQuantityagain = driver.findElement(By.name("qty"));
         enterQuantityagain.sendKeys(numberOfProducts);
- //       quantityOfProduct.sendKeys(Keys.ENTER);
+        //       quantityOfProduct.sendKeys(Keys.ENTER);
 
     }
 
     public void buttonAddChosenProductToCart() {
         addToCartButton.click();
+    }
+
+    public void convertedPrimaryPrice(WebElement regularPrice) {
+        double regularPriceInConvert = Double.parseDouble(regularPrice.getText());
+
+
     }
 
 

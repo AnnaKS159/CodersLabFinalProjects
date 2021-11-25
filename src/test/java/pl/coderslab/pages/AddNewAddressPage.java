@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 // todo extract to separate pages
 public class AddNewAddressPage {
     private WebDriver driver;
@@ -36,6 +37,10 @@ public class AddNewAddressPage {
 
     @FindBy(css = "[class='btn btn-primary float-xs-right']")
     private WebElement clickToSubmitAddress;
+
+
+    @FindBy(id="history-link")
+    private WebElement openHistoryAndDetails;
 
 
     public AddNewAddressPage(WebDriver driver) {
@@ -74,6 +79,10 @@ public class AddNewAddressPage {
 
     public void saveImplementedData() {
         clickToSubmitAddress.click();
+    }
+
+    public void clickInOrderHistoryTile(){
+        openHistoryAndDetails.click();
     }
 
 }

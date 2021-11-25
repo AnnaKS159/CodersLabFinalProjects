@@ -4,13 +4,19 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.coderslab.pages.*;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class MyStoreEvolutionExercise2Steps {
+    private String orderReference;
+    private String valueOfProducts;
     private WebDriver driver;
     private AddNewAddressPage addNewAddressEx1Page;
 
@@ -55,6 +61,21 @@ public class MyStoreEvolutionExercise2Steps {
         SearchResultPage searchResultPage = new SearchResultPage(driver);
         searchResultPage.openWebsiteOfProduct();
     }
+//    @Then("I check that product is discounted about 20% ")
+//    public void  checkDiscountIs20 (){
+//       Double regularPrice =35.90;
+//       CheckDiscount checkDiscount =new CheckDiscount();
+//       checkDiscount();
+//        }
+//
+////        ProductPage productPage =new ProductPage(driver);
+////        public static int caclulateDiscount(WebDriver driver, double percent) {
+////            double num = Double.parseDouble(driver.findElement(By.xpath("//*[@id=\\\"main\\\"]/div[1]/div[2]/div[1]/div[2]/div/span[1]\"")).getText());
+////            percent=0.8;
+////            return (num/percent);
+////            Assert.assertEquals( productPage.convertedPrimaryPrice(WebElement),caclulateDiscount);
+////        Assert.assertTrue("Rigt calculted discount", );
+//    }
 
     @When("^I choose the size: (.*) and quantity which is equal (.*) of product and I add to cart$")
     public void addingTheProductToCart(String size, String numberOfProducts) {
@@ -99,11 +120,53 @@ public class MyStoreEvolutionExercise2Steps {
         orderDetailsPage.confirmPaymentMethod();
 
     }
+
     @Then("I make screen shot as confirmation of my order")
     public void makeScreenShoot() throws Exception {
-        ScreenShotOrderConfirmationPage screenShotOrderConfirmationPage =new ScreenShotOrderConfirmationPage(driver);
+        ScreenShotOrderConfirmationPage screenShotOrderConfirmationPage = new ScreenShotOrderConfirmationPage(driver);
         screenShotOrderConfirmationPage.takeSnapShot();
+
+       orderReference= screenShotOrderConfirmationPage.getOrderReferenceNumber();
+        valueOfProducts = screenShotOrderConfirmationPage.getPriceOfProduct();
+    }
+
+      @And("I go back to main user Page")
+    public void goToMAinPageOfUser() {
+        ScreenShotOrderConfirmationPage screenShotOrderConfirmationPage = new ScreenShotOrderConfirmationPage(driver);
+        screenShotOrderConfirmationPage.backToUserMainPage();
+    }
+
+    @And("I go to tiles with my details of my order and history of my orders.")
+    public void openHistoryAndOrderTiles() {
+        AddNewAddressPage addNewAddressPage = new AddNewAddressPage(driver);
+        addNewAddressPage.clickInOrderHistoryTile();
+    }
+
+    @Then("I check that My order is here")
+    public void checkAvailableOrderData() {
+        OrderHistoryPage orderHistoryPage =new OrderHistoryPage(driver);
+
+        //******I need check reference name***********
+
+        WebElement orderReferenceName = orderHistoryPage.findOrderDetails(orderReference); // czy orderReference jest pusty?
+
+        Assert.assertNotNull(orderReferenceName);
+         String orderReferenceRowText =orderReferenceName.getText();
+        System.out.println(orderReferenceRowText);
+
+        String[] splittedOrderReferenceRowText =orderReferenceRowText.split(" ");
+        System.out.println(Arrays.toString(splittedOrderReferenceRowText));
+
+        Assert.assertEquals(orderReference, splittedOrderReferenceRowText[0] );
+
+        //******I need check value of order *********
+
+        Assert.assertEquals(valueOfProducts, splittedOrderReferenceRowText[2] );
+        System.out.println(splittedOrderReferenceRowText [2]);
+
+
 
     }
 }
+
 
