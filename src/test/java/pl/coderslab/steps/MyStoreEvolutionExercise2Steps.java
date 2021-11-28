@@ -5,18 +5,18 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.coderslab.pages.*;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class MyStoreEvolutionExercise2Steps {
     private String orderReference;
     private String valueOfProducts;
+    private Double primaryPrice;
+    private Double currentPrice;
     private WebDriver driver;
     private AddNewAddressPage addNewAddressEx1Page;
 
@@ -61,27 +61,25 @@ public class MyStoreEvolutionExercise2Steps {
         SearchResultPage searchResultPage = new SearchResultPage(driver);
         searchResultPage.openWebsiteOfProduct();
     }
-//    @Then("I check that product is discounted about 20% ")
-//    public void  checkDiscountIs20 (){
-//       Double regularPrice =35.90;
-//       CheckDiscount checkDiscount =new CheckDiscount();
-//       checkDiscount();
-//        }
-//
-////        ProductPage productPage =new ProductPage(driver);
-////        public static int caclulateDiscount(WebDriver driver, double percent) {
-////            double num = Double.parseDouble(driver.findElement(By.xpath("//*[@id=\\\"main\\\"]/div[1]/div[2]/div[1]/div[2]/div/span[1]\"")).getText());
-////            percent=0.8;
-////            return (num/percent);
-////            Assert.assertEquals( productPage.convertedPrimaryPrice(WebElement),caclulateDiscount);
-////        Assert.assertTrue("Rigt calculted discount", );
-//    }
+    @Then("I check that product is discounted about 20%")
+
+    public void  checkDiscountIs20 (){
+        ProductPage productPage =new ProductPage(driver);
+        productPage.convertedPrimaryPrice();
+        productPage.convertedCurrentPrice();
+
+        productPage.checkingPercentageOfPrice();
+        productPage.findThePercentageOfDiscount();
+
+        Assert.assertEquals(0, productPage.findThePercentageOfDiscount().compareTo(productPage.checkingPercentageOfPrice()));
+            }
+
 
     @When("^I choose the size: (.*) and quantity which is equal (.*) of product and I add to cart$")
     public void addingTheProductToCart(String size, String numberOfProducts) {
         ProductPage productPage = new ProductPage(driver);
         productPage.chooseYourSize(size);
-        productPage.choosePreferedQuantity(numberOfProducts);
+        productPage.choosePreferredQuantity(numberOfProducts);
         productPage.buttonAddChosenProductToCart();
     }
 
@@ -152,19 +150,19 @@ public class MyStoreEvolutionExercise2Steps {
 
         Assert.assertNotNull(orderReferenceName);
          String orderReferenceRowText =orderReferenceName.getText();
-        System.out.println(orderReferenceRowText);
+       // System.out.println(orderReferenceRowText);
 
         String[] splittedOrderReferenceRowText =orderReferenceRowText.split(" ");
-        System.out.println(Arrays.toString(splittedOrderReferenceRowText));
+        //System.out.println(Arrays.toString(splittedOrderReferenceRowText));
 
         Assert.assertEquals(orderReference, splittedOrderReferenceRowText[0] );
+        System.out.println("The new order reference which I can find in order history is the same as in order details page. ");
 
         //******I need check value of order *********
 
         Assert.assertEquals(valueOfProducts, splittedOrderReferenceRowText[2] );
-        System.out.println(splittedOrderReferenceRowText [2]);
-
-
+       // System.out.println(splittedOrderReferenceRowText [2]);
+        System.out.println(" The value of order is correct");
 
     }
 }

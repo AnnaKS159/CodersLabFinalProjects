@@ -9,7 +9,7 @@ Feature: Doing shopping in mystore page
     When I go back to main page
     When I search the product: <name OF Product>
     When  I choose my product from results
-#  Then I check that product is discounted about 20%
+    Then I check that product is discounted about 20%
     When I choose the size: <size> and quantity which is equal <quantity> of product and I add to cart
     When I am proceed to checkout
     And I make doublecheck in my order and click proceed to checkout.

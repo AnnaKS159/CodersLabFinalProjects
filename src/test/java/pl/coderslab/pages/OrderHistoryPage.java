@@ -33,7 +33,7 @@ public class OrderHistoryPage {
 
     public boolean doesRowHaveOrderReference(WebElement orderDetails, String orderReferenceUniqueName){
         WebElement orderReferenceElement=orderDetails.findElement(By.xpath("//*[@id=\"content\"]/table/tbody/tr[1]"));
-        System.out.println("----->"+orderReferenceElement.getText());
+       // System.out.println("----->"+orderReferenceElement.getText());
         String [] splittedOrderReferenceElement = orderReferenceElement.getText().split(" ");
         String orderReference = splittedOrderReferenceElement [0];
        // System.out.println(orderReference);
