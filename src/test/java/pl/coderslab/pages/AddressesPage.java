@@ -20,7 +20,7 @@ public class AddressesPage {
         PageFactory.initElements(driver, this);
     }
 
-    public WebElement findAddressWithAlias(String alias) {
+    public WebElement findAddressWithAlias(String alias) { // w calym kafelku z szukam po aliasie
         for (WebElement addres : adresses) {
             if (doesElementHaveAlias(addres, alias)) {
                 return addres;
@@ -35,7 +35,7 @@ public class AddressesPage {
     }
 
 
-    public boolean doesElementHaveAlias(WebElement address, String alias) {
+    public boolean doesElementHaveAlias(WebElement address, String alias) { //Musze po czyms szuakc a alias powinien byc unikalny
         WebElement aliasElement = address.findElement(By.tagName("h4"));
 //        System.out.println("*** " + aliasElement.getText());
         return aliasElement.getText().equals(alias);

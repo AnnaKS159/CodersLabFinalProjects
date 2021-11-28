@@ -9,14 +9,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.coderslab.pages.*;
-
 import java.util.concurrent.TimeUnit;
 
 public class MyStoreEvolutionExercise2Steps {
     private String orderReference;
     private String valueOfProducts;
-    private Double primaryPrice;
-    private Double currentPrice;
     private WebDriver driver;
     private AddNewAddressPage addNewAddressEx1Page;
 
@@ -61,18 +58,19 @@ public class MyStoreEvolutionExercise2Steps {
         SearchResultPage searchResultPage = new SearchResultPage(driver);
         searchResultPage.openWebsiteOfProduct();
     }
+
     @Then("I check that product is discounted about 20%")
 
-    public void  checkDiscountIs20 (){
-        ProductPage productPage =new ProductPage(driver);
-        productPage.convertedPrimaryPrice();
-        productPage.convertedCurrentPrice();
+    public void checkDiscountIs20() {
+        ProductPage productPage = new ProductPage(driver);
+        productPage.convertedPrimaryPrice(); // Szukam ceny regularnej i przetwarzam do doubla
+        productPage.convertedCurrentPrice(); // szukam ceny obecnej i przetwarzam do doubla
 
-        productPage.checkingPercentageOfPrice();
-        productPage.findThePercentageOfDiscount();
+        productPage.checkingPercentageOfPrice();  //obliczam procent obnizki produktu, dzielac cene obecna przez regularna
+        productPage.findThePercentageOfDiscount(); // znajduje ilosc procentow wyswietlona na  stroniei konwertuje do porownania
 
         Assert.assertEquals(0, productPage.findThePercentageOfDiscount().compareTo(productPage.checkingPercentageOfPrice()));
-            }
+    }
 
 
     @When("^I choose the size: (.*) and quantity which is equal (.*) of product and I add to cart$")
@@ -124,11 +122,11 @@ public class MyStoreEvolutionExercise2Steps {
         ScreenShotOrderConfirmationPage screenShotOrderConfirmationPage = new ScreenShotOrderConfirmationPage(driver);
         screenShotOrderConfirmationPage.takeSnapShot();
 
-       orderReference= screenShotOrderConfirmationPage.getOrderReferenceNumber();
+        orderReference = screenShotOrderConfirmationPage.getOrderReferenceNumber();
         valueOfProducts = screenShotOrderConfirmationPage.getPriceOfProduct();
     }
 
-      @And("I go back to main user Page")
+    @And("I go back to main user Page")
     public void goToMAinPageOfUser() {
         ScreenShotOrderConfirmationPage screenShotOrderConfirmationPage = new ScreenShotOrderConfirmationPage(driver);
         screenShotOrderConfirmationPage.backToUserMainPage();
@@ -142,26 +140,26 @@ public class MyStoreEvolutionExercise2Steps {
 
     @Then("I check that My order is here")
     public void checkAvailableOrderData() {
-        OrderHistoryPage orderHistoryPage =new OrderHistoryPage(driver);
+        OrderHistoryPage orderHistoryPage = new OrderHistoryPage(driver);
 
         //******I need check reference name***********
 
-        WebElement orderReferenceName = orderHistoryPage.findOrderDetails(orderReference); // czy orderReference jest pusty?
+        WebElement orderReferenceName = orderHistoryPage.findOrderDetails(orderReference);
 
         Assert.assertNotNull(orderReferenceName);
-         String orderReferenceRowText =orderReferenceName.getText();
-       // System.out.println(orderReferenceRowText);
+        String orderReferenceRowText = orderReferenceName.getText();
+        // System.out.println(orderReferenceRowText);
 
-        String[] splittedOrderReferenceRowText =orderReferenceRowText.split(" ");
+        String[] splittedOrderReferenceRowText = orderReferenceRowText.split(" ");
         //System.out.println(Arrays.toString(splittedOrderReferenceRowText));
 
-        Assert.assertEquals(orderReference, splittedOrderReferenceRowText[0] );
+        Assert.assertEquals(orderReference, splittedOrderReferenceRowText[0]);
         System.out.println("The new order reference which I can find in order history is the same as in order details page. ");
 
         //******I need check value of order *********
 
-        Assert.assertEquals(valueOfProducts, splittedOrderReferenceRowText[2] );
-       // System.out.println(splittedOrderReferenceRowText [2]);
+        Assert.assertEquals(valueOfProducts, splittedOrderReferenceRowText[2]);
+        // System.out.println(splittedOrderReferenceRowText [2]);
         System.out.println(" The value of order is correct");
 
     }

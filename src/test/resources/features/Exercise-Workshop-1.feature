@@ -9,8 +9,8 @@ Feature: Login in to mystore page and create the address.
     When I choose the option to create new address.
     When I create new address with alias:<Alias>, address:<address>, city:<City>, zip code:<Zip Code>, phone number:<Phone Number>
     When I save the data
-    Then I see the address with alias:<Alias>, address:<address>, city:<City>, zip code:<Zip Code>, phone number:<Phone Number>
-    And I delete my inserted data with alias <Alias>
+#    Then I see the address with alias:<Alias>, address:<address>, city:<City>, zip code:<Zip Code>, phone number:<Phone Number>
+#    And I delete my inserted data with alias <Alias>
 
     Examples:
       | Alias        | address        | City   | Zip Code | Phone Number |
