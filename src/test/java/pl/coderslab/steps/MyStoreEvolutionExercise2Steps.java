@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.coderslab.pages.*;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -65,24 +66,11 @@ public class MyStoreEvolutionExercise2Steps {
 
     public void checkDiscountIs20() {
         ProductPage productPage = new ProductPage(driver);
-        /**
-         * wyniki wszystkich 4 metod:
-         *
-         * productPage.convertedPrimaryPrice();
-         * productPage.convertedCurrentPrice();
-         *
-         * productPage.checkingPercentageOfPrice();
-         * productPage.findThePercentageOfDiscount();
-         *
-         * nie są nigdzie zapisywane ani używane - czy ich wywołania tutaj są potrzebne?
-         */
-        productPage.convertedPrimaryPrice(); // Szukam ceny regularnej i przetwarzam do doubla
-        productPage.convertCurrentPrice(); // szukam ceny obecnej i przetwarzam do doubla
 
-        productPage.calculatingPercentageOfPrice();  //obliczam procent obnizki produktu, dzielac cene obecna przez regularna
-        productPage.findThePercentageOfDiscount(); // znajduje ilosc procentow wyswietlona na  stroniei konwertuje do porownania
+        BigDecimal percentageOfPrice = productPage.calculatingPercentageOfPrice();//obliczam procent obnizki produktu, dzielac cene obecna przez regularna
+        BigDecimal thePercentageOfDiscount = productPage.findThePercentageOfDiscount();// znajduje ilosc procentow wyswietlona na  stroniei konwertuje do porownania
 
-        Assert.assertEquals(0, productPage.findThePercentageOfDiscount().compareTo(productPage.calculatingPercentageOfPrice()));
+        Assert.assertEquals(0, thePercentageOfDiscount.compareTo(percentageOfPrice));
     }
 
 
