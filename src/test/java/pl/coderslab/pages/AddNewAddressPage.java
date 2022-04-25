@@ -9,12 +9,9 @@ import org.openqa.selenium.support.PageFactory;
 public class AddNewAddressPage {
     private WebDriver driver;
 
-    /**
-     * (przeczytaj ten komentarz jako ostatni w tym pliku, to odpowiedź na to pytanie będzie łatwiejsza)
-     * Jaki masz pomysł żeby to nazwać tak żeby nie zawierało słowa click opisującego czynność?
-            */
+
     @FindBy(id="addresses-link")
-    private WebElement clickToMoveIntoAddresses;
+    private WebElement buttonAddresses;
 
     @FindBy(css = "[data-link-action='add-address']")
     private WebElement buttonCreateNewAddress;
@@ -43,7 +40,7 @@ public class AddNewAddressPage {
 
 
     @FindBy(id="history-link")
-    private WebElement openHistoryAndDetails;
+    private WebElement buttonHistoryAndDetails;
 
 
     public AddNewAddressPage(WebDriver driver) {
@@ -53,7 +50,7 @@ public class AddNewAddressPage {
 
 
     public void chooseAndClickAddresses() {
-        clickToMoveIntoAddresses.click();
+        buttonAddresses.click();
     }
 
     public void clickInButtonToCreateNewAddress() {
@@ -85,7 +82,7 @@ public class AddNewAddressPage {
     }
 
     public void clickInOrderHistoryTile(){
-        openHistoryAndDetails.click();
+        buttonHistoryAndDetails.click();
     }
 
 }
