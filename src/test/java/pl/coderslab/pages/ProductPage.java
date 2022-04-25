@@ -42,12 +42,12 @@ public class ProductPage {
         sizeOfProduct.sendKeys(Keys.ENTER);
     }
 
-    public void choosePreferredQuantity(String numberOfProducts) { /// wrong method? I have still 15 more elements...)
+     public void choosePreferredQuantity(String numberOfProducts) {
 
 //        quantityOfProduct.clear();
         quantityOfProduct.sendKeys(Keys.BACK_SPACE);
-        WebElement enterQuantityagain = driver.findElement(By.name("qty"));
-        enterQuantityagain.sendKeys(numberOfProducts);
+        WebElement enterQuantityAgain = driver.findElement(By.name("qty"));
+        enterQuantityAgain.sendKeys(numberOfProducts);
         //       quantityOfProduct.sendKeys(Keys.ENTER);
 
     }
@@ -55,6 +55,7 @@ public class ProductPage {
     public void buttonAddChosenProductToCart() {
         addToCartButton.click();
     }
+
 
     public double convertedPrimaryPrice() {  // Pobieram pierwotna cene i usuwam znak euro
         String primaryPrice = regularPrice.getText().replace("€","");
@@ -65,15 +66,18 @@ public class ProductPage {
     }
 
 
-    public double convertedCurrentPrice () {   //wyciagam i konwertuje obecna cene
+
+    public double convertCurrentPrice() {   //wyciagam i konwertuje obecna cene
         String priceAfterDiscount = currentPrice.getText().replace("€","");
        // System.out.println(priceAfterDiscount);
         double convertedCurrentPrice = Double.parseDouble(priceAfterDiscount);
          return  convertedCurrentPrice;
     }
 
-    public BigDecimal checkingPercentageOfPrice (){ // obliczam procent obnizki produktu, dzielac cene obecna przez regularna
-        Double percentOfDiscount = convertedCurrentPrice()/convertedPrimaryPrice();
+
+
+    public BigDecimal calculatingPercentageOfPrice(){ // obliczam procent obnizki produktu, dzielac cene obecna przez regularna
+        Double percentOfDiscount = convertCurrentPrice()/convertedPrimaryPrice();
         Double finalPercent = (1- percentOfDiscount);
         //System.out.println(finalPercent);
 

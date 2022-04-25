@@ -12,8 +12,8 @@ public class AddressesPage {
 
     private WebDriver driver;
 
-    @FindBy(css = "[class='address']")
-    private List<WebElement> adresses;
+        @FindBy(css = "[class='address']")
+    private List<WebElement> addresses;
 
     public AddressesPage(WebDriver driver) {
         this.driver = driver;
@@ -21,21 +21,24 @@ public class AddressesPage {
     }
 
     public WebElement findAddressWithAlias(String alias) { // w calym kafelku z szukam po aliasie
-        for (WebElement addres : adresses) {
-            if (doesElementHaveAlias(addres, alias)) {
-                return addres;
+        for (WebElement address : addresses) {
+            if (doesElementHaveAlias(address, alias)) {
+                return address;
             }
         }
         return null;
     }
+
     public void deleteAddressWithAlias (String alias){
        WebElement tableWithAddressData= findAddressWithAlias(alias);
-       WebElement deletebutton= tableWithAddressData.findElement(By.cssSelector("[data-link-action=\"delete-address\"]"));
-       deletebutton.click();
+
+
+       WebElement deleteButton= tableWithAddressData.findElement(By.cssSelector("[data-link-action=\"delete-address\"]"));
+       deleteButton.click();
     }
 
 
-    public boolean doesElementHaveAlias(WebElement address, String alias) { //Musze po czyms szuakc a alias powinien byc unikalny
+    private boolean doesElementHaveAlias(WebElement address, String alias) { //Musze po czyms szuakc a alias powinien byc unikalny
         WebElement aliasElement = address.findElement(By.tagName("h4"));
 //        System.out.println("*** " + aliasElement.getText());
         return aliasElement.getText().equals(alias);

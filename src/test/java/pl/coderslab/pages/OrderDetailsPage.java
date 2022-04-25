@@ -9,7 +9,7 @@ public class OrderDetailsPage {
     private WebDriver driver;
 
     @FindBy(name = "confirm-addresses")
-    private WebElement confirmAddressButton;
+    private WebElement addressConfirmationButton;
 
     @FindBy(id = "checkout-delivery-step")
     private WebElement goToShippingMethod;
@@ -18,16 +18,17 @@ public class OrderDetailsPage {
     private WebElement tickPrestaShopShipping;
 
     @FindBy(css = "[name='confirmDeliveryOption']")
-    private WebElement confirmShippingButton;
+    private WebElement shippingConfirmationButton;
 
     @FindBy(css = "[data-module-name='ps_checkpayment']")
     private WebElement paymentMethodByCheck;
 
+
     @FindBy(name = "conditions_to_approve[terms-and-conditions]")
-    private WebElement acceptTermOfService;
+    private WebElement acceptanceTermOfService;
 
     @FindBy(css = "[class='btn btn-primary center-block']")
-    private WebElement buttonOrderWithAnObligationToPay;
+    private WebElement orderWithAnObligationToPayButton;
 
 
 
@@ -37,8 +38,9 @@ public class OrderDetailsPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void confirmationAddress() {
-        confirmAddressButton.click();
+
+    public void confirmAddress() {
+        addressConfirmationButton.click();
     }
 
     public void openShippingMethods() {
@@ -48,16 +50,18 @@ public class OrderDetailsPage {
         tickPrestaShopShipping.click();
     }
     public void confirmChosenShipping(){
-        confirmShippingButton.click();
+        shippingConfirmationButton.click();
     }
     public void choosePreferredPaymentMethod(){
         paymentMethodByCheck.click();
     }
     public void acceptAgreementsOfShopTerms(){
-        acceptTermOfService.click();
+        acceptanceTermOfService.click();
     }
-    public void confirmPaymentMethod(){
-        buttonOrderWithAnObligationToPay.click();
+
+
+    public void orderSubmission(){
+        orderWithAnObligationToPayButton.click();
     }
 
 }

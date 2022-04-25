@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.coderslab.pages.AddNewAddressPage;
 import pl.coderslab.pages.AddressesPage;
-import pl.coderslab.pages.LoginInShopPage;
+import pl.coderslab.pages.loginInShopPage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,13 +31,14 @@ public class MyStoreExercise1Steps {
 
     @When("I click in SignIn Button")
     public void clickInSignInButtonOnMainPage() {
-        LoginInShopPage loginInShopPage = new LoginInShopPage(driver);
+        loginInShopPage loginInShopPage = new loginInShopPage(driver);
         loginInShopPage.goToSignInPage();
     }
 
     @When("^I am login in my-store-testlab.coderslab.pl with email:(.*) and password: (.*)$")
-    public void enterloginDetailTOpenPage(String email, String password) {
-        LoginInShopPage loginInShopPage = new LoginInShopPage(driver);
+
+    public void enterLoginDetailTOpenPage(String email, String password) {
+        loginInShopPage loginInShopPage = new loginInShopPage(driver);
         loginInShopPage.insertDataToLogin(email, password);
         loginInShopPage.confirmEmailAndPassword();
     }
@@ -57,8 +58,8 @@ public class MyStoreExercise1Steps {
     @When("^I create new address with alias:(.*), address:(.*), city:(.*), zip code:(.*), phone number:(.*)$")
     public void fillAddressForm(String alias, String address, String city, String zipCode, String phoneNumber) {
         addNewAddressEx1Page.transmitAlias(alias);
-        addNewAddressEx1Page.inputAddress(address);
-        addNewAddressEx1Page.inputCity(city);
+        addNewAddressEx1Page.enterAddress(address);
+        addNewAddressEx1Page.enterCity(city);
         addNewAddressEx1Page.enterZipCode(zipCode);
         addNewAddressEx1Page.enterPhoneNumber(phoneNumber);
     }

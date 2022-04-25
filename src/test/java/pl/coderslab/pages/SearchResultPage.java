@@ -1,6 +1,5 @@
 package pl.coderslab.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +9,7 @@ public class SearchResultPage {
     private WebDriver driver;
 
     @FindBy(xpath = "//*[@id='js-product-list']/div[1]/article[1]/div/div[1]/h2/a")
-    private WebElement serchedProduct;
+    private WebElement searchedProduct;
 
 
     public SearchResultPage(WebDriver driver) {
@@ -19,6 +18,6 @@ public class SearchResultPage {
     }
 
     public void openWebsiteOfProduct() {
-        serchedProduct.click();
+        searchedProduct.click();
     }
 }

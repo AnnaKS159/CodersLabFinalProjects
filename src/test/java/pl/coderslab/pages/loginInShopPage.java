@@ -6,29 +6,30 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginInShopPage {
+
+public class loginInShopPage {
     private WebDriver driver;
 
     @FindBy(css = "[title='Log in to your customer account']")
     private WebElement mainPageSignInButton;
 
     @FindBy(name = "email")
-    private WebElement enterEmail;
+    private WebElement emailInput;
 
     @FindBy(name = "password")
-    private WebElement enterPassword;
+    private WebElement passwordInput;
 
     @FindBy(id = "submit-login")
-    private WebElement confrimDataByClickingSignIn;
+    private WebElement submitButton;
 
     @FindBy(id = "_desktop_logo")
     private WebElement comeBackToMainPage;
 
     @FindBy(className = "ui-autocomplete-input")
-    private WebElement insertTheNameOfProduct;
+    private WebElement nameOfProductInsert;
 
 
-    public LoginInShopPage(WebDriver driver) {
+    public loginInShopPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -37,24 +38,24 @@ public class LoginInShopPage {
     }
 
     public void insertDataToLogin(String email, String password) {
-        enterEmail.clear();
-        enterEmail.sendKeys(email);
-        enterPassword.clear();
-        enterPassword.sendKeys(password);
+        emailInput.clear();
+        emailInput.sendKeys(email);
+        passwordInput.clear();
+        passwordInput.sendKeys(password);
     }
 
     public void confirmEmailAndPassword() {
-        confrimDataByClickingSignIn.click();
+        submitButton.click();
     }
     public void clickToGoBackToMAinPage(){
         comeBackToMainPage.click();
     }
     public void findTheProduct(String nameOfProduct){
-        insertTheNameOfProduct.click();
-        insertTheNameOfProduct.clear();
-        insertTheNameOfProduct.click();
-        insertTheNameOfProduct.sendKeys(nameOfProduct);
-        insertTheNameOfProduct.sendKeys(Keys.ENTER);
+        nameOfProductInsert.click();
+        nameOfProductInsert.clear();
+        nameOfProductInsert.click();
+        nameOfProductInsert.sendKeys(nameOfProduct);
+        nameOfProductInsert.sendKeys(Keys.ENTER);
 
     }
 

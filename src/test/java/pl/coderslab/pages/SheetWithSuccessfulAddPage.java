@@ -1,6 +1,5 @@
 package pl.coderslab.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +10,7 @@ public class SheetWithSuccessfulAddPage {
 
 
     @FindBy(xpath = "//*[@id='blockcart-modal']/div/div/div[2]/div/div[2]/div/div/a")
-    private WebElement proceedToCheckOut;
+    private WebElement proceedToCheckOutButton;
 
 
     public SheetWithSuccessfulAddPage(WebDriver driver) {
@@ -21,8 +20,8 @@ public class SheetWithSuccessfulAddPage {
     }
 
 
-    public void goTocheckOut(){
-        proceedToCheckOut.click();
+    public void goToCheckOut(){
+        proceedToCheckOutButton.click();
     }
 
 }

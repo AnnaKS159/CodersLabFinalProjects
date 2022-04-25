@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.coderslab.pages.*;
+
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class MyStoreEvolutionExercise2Steps {
@@ -30,26 +32,26 @@ public class MyStoreEvolutionExercise2Steps {
 
     @When("I click in SignIn Button to login")
     public void clickInSignInButtonOnMainPage() {
-        LoginInShopPage loginInShopPage = new LoginInShopPage(driver);
+        loginInShopPage loginInShopPage = new loginInShopPage(driver);
         loginInShopPage.goToSignInPage();
     }
 
     @When("^I login in my-store-testlab.coderslab.pl with email:(.*) and password: (.*)$")
     public void enterloginDetailTOpenPage(String email, String password) {
-        LoginInShopPage loginInShopPage = new LoginInShopPage(driver);
+        loginInShopPage loginInShopPage = new loginInShopPage(driver);
         loginInShopPage.insertDataToLogin(email, password);
         loginInShopPage.confirmEmailAndPassword();
     }
 
     @When("I go back to main page")
     public void goBackToMainPage() {
-        LoginInShopPage loginInShopPage = new LoginInShopPage(driver);
+        loginInShopPage loginInShopPage = new loginInShopPage(driver);
         loginInShopPage.clickToGoBackToMAinPage();
     }
 
     @When("^I search the product: (.*)$")
     public void searchTheProductToBuy(String productName) {
-        LoginInShopPage loginInShopPage = new LoginInShopPage(driver);
+        loginInShopPage loginInShopPage = new loginInShopPage(driver);
         loginInShopPage.findTheProduct(productName);
     }
 
@@ -63,13 +65,24 @@ public class MyStoreEvolutionExercise2Steps {
 
     public void checkDiscountIs20() {
         ProductPage productPage = new ProductPage(driver);
+        /**
+         * wyniki wszystkich 4 metod:
+         *
+         * productPage.convertedPrimaryPrice();
+         * productPage.convertedCurrentPrice();
+         *
+         * productPage.checkingPercentageOfPrice();
+         * productPage.findThePercentageOfDiscount();
+         *
+         * nie są nigdzie zapisywane ani używane - czy ich wywołania tutaj są potrzebne?
+         */
         productPage.convertedPrimaryPrice(); // Szukam ceny regularnej i przetwarzam do doubla
-        productPage.convertedCurrentPrice(); // szukam ceny obecnej i przetwarzam do doubla
+        productPage.convertCurrentPrice(); // szukam ceny obecnej i przetwarzam do doubla
 
-        productPage.checkingPercentageOfPrice();  //obliczam procent obnizki produktu, dzielac cene obecna przez regularna
+        productPage.calculatingPercentageOfPrice();  //obliczam procent obnizki produktu, dzielac cene obecna przez regularna
         productPage.findThePercentageOfDiscount(); // znajduje ilosc procentow wyswietlona na  stroniei konwertuje do porownania
 
-        Assert.assertEquals(0, productPage.findThePercentageOfDiscount().compareTo(productPage.checkingPercentageOfPrice()));
+        Assert.assertEquals(0, productPage.findThePercentageOfDiscount().compareTo(productPage.calculatingPercentageOfPrice()));
     }
 
 
@@ -84,21 +97,22 @@ public class MyStoreEvolutionExercise2Steps {
     @When("I am proceed to checkout")
     public void pressButtonToCheckOut() {
         SheetWithSuccessfulAddPage sheetWithSuccessfulAddPage = new SheetWithSuccessfulAddPage(driver);
-        sheetWithSuccessfulAddPage.goTocheckOut();
+        sheetWithSuccessfulAddPage.goToCheckOut();
 
     }
 
     @And("I make doublecheck in my order and click proceed to checkout.")
-    public void confirminAndPressTheProceedButton() {
+    public void confirmInAndPressTheProceedButton() {
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.clickToButtonProceedToCheckOut();
     }
 
     @When("I Confirm address")
-    public void confirmationAdresses() {
+    public void confirmationAddresses() {
         OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
-        orderDetailsPage.confirmationAddress();
+        orderDetailsPage.confirmAddress();
     }
+
 
     @When("I choose pick up method as PrestaShop \"pick up in store\"")
     public void openShippingMethodPage() {
@@ -113,7 +127,7 @@ public class MyStoreEvolutionExercise2Steps {
         OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
         orderDetailsPage.choosePreferredPaymentMethod();
         orderDetailsPage.acceptAgreementsOfShopTerms();
-        orderDetailsPage.confirmPaymentMethod();
+        orderDetailsPage.orderSubmission();
 
     }
 
@@ -127,7 +141,8 @@ public class MyStoreEvolutionExercise2Steps {
     }
 
     @And("I go back to main user Page")
-    public void goToMAinPageOfUser() {
+
+    public void goToMainPageOfUser() {
         ScreenShotOrderConfirmationPage screenShotOrderConfirmationPage = new ScreenShotOrderConfirmationPage(driver);
         screenShotOrderConfirmationPage.backToUserMainPage();
     }
@@ -148,18 +163,20 @@ public class MyStoreEvolutionExercise2Steps {
 
         Assert.assertNotNull(orderReferenceName);
         String orderReferenceRowText = orderReferenceName.getText();
-        // System.out.println(orderReferenceRowText);
 
-        String[] splittedOrderReferenceRowText = orderReferenceRowText.split(" ");
-        //System.out.println(Arrays.toString(splittedOrderReferenceRowText));
+        System.out.println("Order reference text: "+ orderReferenceRowText);
 
-        Assert.assertEquals(orderReference, splittedOrderReferenceRowText[0]);
+
+        String[] splitOrderReferenceRowText = orderReferenceRowText.split(" ");
+        System.out.println("Split reference text: "+ Arrays.toString(splitOrderReferenceRowText));
+
+        Assert.assertEquals(orderReference, splitOrderReferenceRowText[0]);
         System.out.println("The new order reference which I can find in order history is the same as in order details page. ");
 
         //******I need check value of order *********
 
-        Assert.assertEquals(valueOfProducts, splittedOrderReferenceRowText[2]);
-        // System.out.println(splittedOrderReferenceRowText [2]);
+        Assert.assertEquals(valueOfProducts, splitOrderReferenceRowText[2]);
+        // System.out.println(splitOrderReferenceRowText [2]);
         System.out.println(" The value of order is correct");
 
     }

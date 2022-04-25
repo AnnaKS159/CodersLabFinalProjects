@@ -21,6 +21,8 @@ Feature: Doing shopping in mystore page
     And I go to tiles with my details of my order and history of my orders.
     Then I check that My order is here
 
+#    spróbuj dodać tutaj więcej przypadków, tak żeby Twój test sprawdził np rozmiar L oraz quantity 3
     Examples:
       | name OF Product             | size | quantity |
       | Hummingbird Printed Sweater | M    | 5        |
+      | Hummingbird Printed Sweater | L    | 10       |
